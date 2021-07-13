@@ -1,6 +1,16 @@
 # graphicx-io-example-client-mqtt-json-python
 
-## Configure the software
+Example MQTT Client for sending time series data to graphicx.io with
+
+* Protocol: MQTT
+* Payload Format: JSON
+* Language: python
+
+This example under Apache License 2.0 helps you develop your own client.
+
+You can also configure and run it for testing purposes.
+
+## Configure
 
 To adjust all necessary parameters in the configuration file simply use following command in the CLI:
 
@@ -28,7 +38,7 @@ If you are not yet familiar how these parameters are defined or how to obtain th
 
 Note: The script creates the file config_local.json which will be read by the main program. If the configuration file does not yet exist, it will be created. If it already exists, each current configuration parameter value will be presented and you will be asked if you want to keep or change it. 
 
-## Start to send MQTT messages with measurement data
+## Run
 
 Once you reached this step, the only remain task is to start the program and thus send real temperature and humidity data to the graphicx.io portal. Enter the following command in the CLI of the Raspberry Pi:
 
