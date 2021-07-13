@@ -2,35 +2,31 @@
 
 ## Configure the software
 
-To adjust all necessary parameters in the configuration file simply use following command in the CLI of the Raspberry Pi:
+To adjust all necessary parameters in the configuration file simply use following command in the CLI:
 
 ```
-python3 config.py
+python3 scripts/create_or_update_config.py
 ```
 
 If python 3.4 or higher happens to be the default, this could also be just:
 
 ```
-python config.py
+python scripts/create_or_update_config.py
 ```
 
-The little script (config.py) will ask you for following parameters and adjusts the configuration file:
+The script will ask you for following parameters and adjusts the configuration file:
 
-- Tenant ID
-- Device Identifier
-- MQTT Broker Host
-- MQTT Broker Port
+- Tenant ID (usually vod, but this is subject to be improved)
+- Device Identifier (the external ID of your Device as currently saved in graphicx.io, alternatively its UUID in graphicx.io)
+- MQTT Broker Host (usually mqtt.graphicx.io, unless you would be told a different hostname and unless you'd use a VPN)
+- MQTT Broker Port (usually 8883, if you need a non-TLS port this can be arranged e.g. via a VPN)
 - MQTT username
 - MQTT password
-- MQTT Client ID
+- MQTT Client ID (usually a UUID)
 
-If you are not yet familiar with these parameters please read the [Quickstart Guide of graphicx.io](https://helpcenter.graphicx.io/en/support/solutions/79000057338).
+If you are not yet familiar how these parameters are defined or how to obtain their values in your case, please read the [Quickstart Guide of graphicx.io](https://helpcenter.graphicx.io/en/support/solutions/79000057338). The MQTT parameters are defined as per MQTT protocol.
 
-The MQTT Client ID is usually a unique ID per IoT Device in case there is only one MQTT Client on the Device.
-
-If use_led_matrix is the string 'true' or 'True' the program will draw an elegant X on the LED-Matrix. The color of the X depends on the current status. It is neutral during start of the program including initially connecting to the MQTT Broker. It is a highlight color during taking and sending measurements. It is yellow on exit due to an interrupt. It is red when there is a failure.
-
-Note: If the configuration file does not yet exist, it will be created. If it already exists, each current value will be presented and you will be asked if you want to keep or change it. 
+Note: The script creates the file config_local.json which will be read by the main program. If the configuration file does not yet exist, it will be created. If it already exists, each current configuration parameter value will be presented and you will be asked if you want to keep or change it. 
 
 ## Start to send MQTT messages with measurement data
 
