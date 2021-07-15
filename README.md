@@ -10,7 +10,7 @@ This example under Apache License 2.0 helps you develop your own client.
 
 You can also configure and run it for testing purposes.
 
-## Prerequisite
+## Prerequisites
 
 To connect to an MQTT Broker such as mqtt.graphicx.io this program needs to be executed in an environment with Internet access, or in case you are in a scenario with VPN, the configured MQTT Broker needs to be reachable there.
 
