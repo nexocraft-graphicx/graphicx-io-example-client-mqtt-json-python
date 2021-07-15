@@ -16,6 +16,22 @@ To connect to an MQTT Broker such as mqtt.graphicx.io this program needs to be e
 
 python 3.4 or higher is needed. Consider using a virtual python environment in order to avoid version conflicts within say your system python environment. See https://docs.python.org/3/tutorial/venv.html for more information if you are not yet familiar with virtual python environments. In case you are using an IDE such as PyCharm, the IDE can most probably manage virtual python environments for you as well.
 
+In your python environment the python package manager pip should be available.
+
+## Install python Modules this program depends on
+
+To install python modules which this python program depends on in your python environment, use the following command:
+
+```
+pip3 install -r requirements.txt
+```
+
+If python 3.4 or higher happens to be the default, this could also be just:
+
+```
+pip install -r requirements.txt
+```
+
 ## Configure
 
 To adjust all necessary parameters in the configuration file simply use following command in the CLI:
@@ -24,7 +40,7 @@ To adjust all necessary parameters in the configuration file simply use followin
 python3 scripts/create_or_update_config.py
 ```
 
-If python 3.4 or higher happens to be the default:
+If python 3.4 or higher happens to be the default, this could also be just:
 
 ```
 python scripts/create_or_update_config.py
@@ -54,7 +70,7 @@ Use the following command:
 python3 main.py
 ```
 
-If python 3.4 or higher happens to be the default:
+If python 3.4 or higher happens to be the default, this could also be just:
 
 ```
 python main.py
