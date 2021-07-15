@@ -12,7 +12,7 @@ You can also configure and run it for testing purposes.
 
 ## Prerequisites
 
-MQTT Broker should be reachable - In order to connect to an MQTT Broker such as mqtt.graphicx.io this program needs to be executed in an environment with Internet access, or in case you are in a scenario with VPN, the configured MQTT Broker needs to be reachable there.
+MQTT Broker should be reachable - In order to connect to an MQTT Broker such as mqtt.graphicx.io this program needs to be executed in an environment with Internet access, or in case you are in a scenario with VPN, the configured MQTT Broker needs to be reachable there. In case you do not yet know whether this prerequisite is given, you could either wait until you reach the point where this program tries to reach the MQTT Broker, or you could try to check the reachability using commands such as netcat, for example as in `nc -v -z -4 mqtt_broker_hostname mqtt_broker_port`.
 
 python - python 3.4 or higher is needed. Consider using a virtual python environment in order to avoid version conflicts within say your system python environment. See https://docs.python.org/3/tutorial/venv.html for more information if you are not yet familiar with virtual python environments. In case you are using an IDE such as PyCharm, the IDE can most probably manage virtual python environments for you as well.
 
