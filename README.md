@@ -10,6 +10,12 @@ This example under Apache License 2.0 helps you develop your own client.
 
 You can also configure and run it for testing purposes.
 
+## Prerequisite
+
+To connect to an MQTT Broker such as mqtt.graphicx.io this program needs to be executed in an environment with Internet access, or in case you are in a scenario with VPN, the configured MQTT Broker needs to be reachable there.
+
+python 3.4 or higher is needed. Consider using a virtual python environment in order to avoid version conflicts within say your system python environment. See https://docs.python.org/3/tutorial/venv.html for more information if you are not yet familiar with virtual python environments. In case you are using an IDE such as PyCharm, the IDE can most probably manage virtual python environments for you as well.
+
 ## Configure
 
 To adjust all necessary parameters in the configuration file simply use following command in the CLI:
@@ -18,7 +24,7 @@ To adjust all necessary parameters in the configuration file simply use followin
 python3 scripts/create_or_update_config.py
 ```
 
-If python 3.4 or higher happens to be the default, this could also be just:
+If python 3.4 or higher happens to be the default:
 
 ```
 python scripts/create_or_update_config.py
@@ -40,13 +46,15 @@ Note: The script creates the file config_local.json which will be read by the ma
 
 ## Run
 
-Once you reached this step, the only remain task is to start the program and thus send real temperature and humidity data to the graphicx.io portal. Enter the following command in the CLI of the Raspberry Pi:
+Once you reached this step, the only remain task is to start the program and thus send real temperature and humidity data to the graphicx.io portal.
+
+Use the following command:
 
 ```
 python3 main.py
 ```
 
-If python 3.4 or higher happens to be the default, this could also be just:
+If python 3.4 or higher happens to be the default:
 
 ```
 python main.py
