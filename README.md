@@ -16,7 +16,7 @@ MQTT Broker should be reachable - In order to connect to an MQTT Broker such as 
 
 python - python 3.4 or higher is needed. Consider using a virtual python environment in order to avoid version conflicts within say your system python environment. See https://docs.python.org/3/tutorial/venv.html for more information if you are not yet familiar with virtual python environments. In case you are using an IDE such as PyCharm, the IDE can most probably manage virtual python environments for you as well.
 
-pio - In your python environment the python package manager pip should be available. You might not need to install it, maybe you just should upgrade it. See https://pip.pypa.io/en/stable/installing/ for more information.
+pip - In your python environment the python package manager pip should be available. You might not need to install it, maybe you just should upgrade it. See https://pip.pypa.io/en/stable/installing/ for more information.
 
 ## Install python Modules this program depends on
 
