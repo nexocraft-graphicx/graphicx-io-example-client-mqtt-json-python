@@ -13,7 +13,7 @@ from graphicx.example.client.mqtt import gio_mqtt_publish
 # ----- Configuration -----
 
 config_data = gio_mqtt_client_config_holder.get_config_data()
-tenant_identifier = config_data["tenant_identifier"]
+mqtt_topic_prefix = config_data["mqtt_topic_prefix"]
 device_identifier = config_data["device_identifier"]
 format_id = config_data["format_id"]
 compression_id = config_data["compression_id"]
@@ -44,7 +44,7 @@ def our_loop_in_one_thread():
             gio_mqtt_publish.publish_ts(gio_mqtt_client.connection_status,
                                         gio_mqtt_client.connection_code,
                                         gio_mqtt_client.mqttc,
-                                        tenant_identifier,
+                                        mqtt_topic_prefix,
                                         device_identifier,
                                         time_epochmillis,
                                         json_payload)
@@ -71,7 +71,7 @@ def main():
     time.sleep(1)
     try:
         print(
-            "tenant_identifier = " + tenant_identifier + "\n" +
+            "mqtt_topic_prefix = " + mqtt_topic_prefix + "\n" +
             "device_identifier = " + device_identifier + "\n" +
             "format_id = " + format_id + "\n" +
             "compression_id = " + compression_id + "\n" +

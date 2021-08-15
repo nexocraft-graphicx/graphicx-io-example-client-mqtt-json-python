@@ -48,7 +48,7 @@ python scripts/create_or_update_config.py
 
 The script will ask you for following parameters and adjusts the configuration file:
 
-- Tenant ID (usually vod, but this is subject to be improved)
+- MQTT Topic Prefix (usually nxo but it can be customized in cooperation with nexocraft for dedicated topics)
 - Device Identifier (the external ID of your Device as currently saved in graphicx.io, alternatively its UUID in graphicx.io)
 - MQTT Broker Host (usually mqtt.graphicx.io, unless you would be told a different hostname and unless you'd use a VPN)
 - MQTT Broker Port (usually 8883, if you need a non-TLS port this can be arranged e.g. via a VPN)
