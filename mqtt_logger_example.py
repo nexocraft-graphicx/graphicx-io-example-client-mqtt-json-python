@@ -43,7 +43,6 @@ connection_status = [
     "Connection status not initialised"
 ]
 
-
 # ----- Variable to track the connection status of the MQTT Client -----
 
 connection_code = -1
@@ -54,11 +53,13 @@ connection_code = -1
 def on_connect(client, userdata, flags, rc):
     global connection_code
     connection_code = rc
-    print("MQTT Client on_connect - Connection code: " + str(rc) + " " + connection_status[connection_code])
-    # Subscribing in on_connect() means that if we lose the connection and
-    # reconnect then subscriptions will be renewed.
-    client.subscribe(MQTT_TOPIC)
-    print("MQTT Client on_connect - Subscribed.")
+    print("MQTT Logger Example on_connect - Connection code: " + str(rc) + " " + connection_status[connection_code])
+    if (connection_code == 0):
+        print("MQTT Logger Example on_connect - Subscribing to " + MQTT_TOPIC)
+        # Subscribing in on_connect() means that if we lose the connection and
+        # reconnect then subscriptions will be renewed.
+        client.subscribe(MQTT_TOPIC)
+        print("MQTT Logger Example on_connect - Subscribed to " + MQTT_TOPIC)
 
 
 def on_message(client, userdata, msg):
@@ -66,18 +67,20 @@ def on_message(client, userdata, msg):
 
 
 def on_publish(client, obj, mid):
-    print("MQTT Client on_publish - Published mid: " + str(mid))
+    # Just implemented out of curiosity. Will not happen since no message is published.
+    print("MQTT Logger Example on_publish - Published mid: " + str(mid))
 
 
 def on_disconnect(client, userdata, rc):
     global connection_code
     connection_code = rc
     if rc != 0:
-        print("MQTT Client on_disconnect - Connection code: " + str(rc) + " " + connection_status[connection_code])
+        print("MQTT Logger Example on_disconnect - Connection code: " + str(rc) + " " + connection_status[
+            connection_code])
 
 
 def on_log(client, obj, level, string):
-    print("MQTT Client on_log - " + string)
+    print("MQTT Logger Example on_log - " + string)
 
 
 mqttc.on_connect = on_connect
@@ -91,7 +94,7 @@ mqttc.on_disconnect = on_disconnect
 
 def connect_mqtt():
     try:
-        print("Configuring MQTT Client.")
+        print("MQTT Logger Example connect_mqtt - Configuring MQTT Client.")
 
         # this makes the MQTT Client behave like a web browser regarding TLS
         # see paho API documentation for details
@@ -103,24 +106,22 @@ def connect_mqtt():
         mqttc.reconnect_delay_set(1, 60)
         mqttc.message_retry_set(10)
 
-        print("Connecting MQTT Client and starting its internal loop thread" +
-              " that automatically handles initial connect, retries of initial connect, reconnects.")
+        print("MQTT Logger Example connect_mqtt - Connecting MQTT Client.")
         mqttc.connect_async(MQTT_BROKER_ADDRESS, MQTT_BROKER_PORT, 30)
-        # give the MQTT Client some time to initially connect
-        time.sleep(10)
     except:
         raise ValueError(
             "Failed to connect to the MQTT Broker. Please check the configuration of the MQTT Client.")
 
 
 def disconnect_mqtt():
-    print("If not yet done stopping MQTT Client gracefully.")
+    print("MQTT Logger Example disconnect_mqtt - If not yet done stopping MQTT Client gracefully."
+          + " This takes a few seconds.")
     mqttc.loop_stop()
     # give the network traffic some time to cease and thus the internal loop-thread of the MQTT Client to stop
     time.sleep(10)
     mqttc.disconnect()
-    # give the MQTT Client some time to connect
-    time.sleep(10)
+    # give the MQTT Client some time to disconnect
+    time.sleep(5)
 
 
 # ----- Main -----
@@ -131,31 +132,33 @@ def main():
     try:
         # connect to MQTT Broker
         connect_mqtt()
+        # give the MQTT Client some time to initially try to connect
+        time.sleep(5)
         # If you run a network loop using loop_start() or loop_forever()
         # then re-connections are automatically handled for you.
-        mqttc.loop_forever(1000.0, 1, True)
+        mqttc.loop_forever(20.0, 1, True)
         # examine if we are now connected
+        print("MQTT Logger Example main - Connection code: "
+              + str(connection_code) + " " + connection_status[connection_code])
         if (connection_code != 0):
-            print("Could not connect to MQTT Broker within 10 seconds." +
-                  " Exiting program so that it will be restarted.\n")
+            print("MQTT Logger Example main - Connecting failed.")
             time.sleep(10)
             pass
         else:
-            print("Connected.\n")
+            print("MQTT Logger Example main - Connected.")
     except (KeyboardInterrupt):
-        print("KeyboardInterrupt caught in main.")
+        print("MQTT Logger Example main - KeyboardInterrupt caught in main.")
         disconnect_mqtt()
     except (SystemExit):
-        print("SystemExit caught in main.")
+        print("MQTT Logger Example main - SystemExit caught in main.")
         disconnect_mqtt()
     except:
         raise
     finally:
-        print("Exiting from main.")
+        print("MQTT Logger Example main - Exiting from main.")
         disconnect_mqtt()
         time.sleep(10)
 
 
 if __name__ == "__main__":
     main()
-
