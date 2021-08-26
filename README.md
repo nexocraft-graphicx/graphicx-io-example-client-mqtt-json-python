@@ -10,6 +10,13 @@ This example under Apache License 2.0 helps you develop your own client.
 
 You can also configure and run it for testing purposes.
 
+## Project structure
+
+Note that next to the Example MQTT client for sending time series data to graphicx.io
+which has its entry point in main.py
+this repository also contains the separate independent file mqtt_logger_example.py
+which is just a very simple program to subscribe to an MQTT topic and print each received message.
+
 ## Prerequisites
 
 MQTT Broker should be reachable - In order to connect to an MQTT Broker such as mqtt.graphicx.io this program needs to be executed in an environment with Internet access, or in case you are in a scenario with VPN, the configured MQTT Broker needs to be reachable there. In case you do not yet know whether this prerequisite is given, you could either wait until you reach the point where this program tries to reach the MQTT Broker, or you could try to check the reachability using commands such as netcat, for example as in `nc -v -z -4 mqtt_broker_host mqtt_broker_port`.
