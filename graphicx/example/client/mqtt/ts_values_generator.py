@@ -17,7 +17,7 @@ barometric_pressure_in_millibars_sigma = 10.0
 barometric_pressure_in_millibars_state = random.getstate()
 
 
-def generate_ts_values_at(time_epochmillis):
+def generate_ts_values():
     global temperature_random_state
     random.setstate(temperature_random_state)
     temperature = random.normalvariate(temperature_mean, temperature_sigma)
@@ -34,10 +34,8 @@ def generate_ts_values_at(time_epochmillis):
                                                             barometric_pressure_in_millibars_sigma)
     barometric_pressure_in_millibars_state = random.getstate()
 
-    ts = [[1, time_epochmillis, temperature],
-          [2, time_epochmillis, relative_humidity],
-          [3, time_epochmillis, barometric_pressure_in_millibars]]
+    ts_values = [temperature, relative_humidity, barometric_pressure_in_millibars]
 
-    print("Generated time series values: " + str(ts))
+    print("Generated time series values: " + str(ts_values))
 
-    return ts
+    return ts_values
