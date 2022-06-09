@@ -19,8 +19,8 @@ mqtt_client_password = config_data["mqtt_client_password"]
 # ----- Instantiate the MQTT Client -----
 
 # we set the MQTT v3.1.1 clean session flag to true since this MQTT Client will only publish
-mqttc = mqtt.Client(mqtt_client_id, True, None, mqtt.MQTTv311, "tcp")
-# mqttc = mqtt.Client("raspidemo1_mqtt_client", None, None, mqtt.MQTTv5, "tcp")
+mqtt_client = mqtt.Client(mqtt_client_id, True, None, mqtt.MQTTv311, "tcp")
+# mqtt_client = mqtt.Client("raspidemo1_mqtt_client", None, None, mqtt.MQTTv5, "tcp")
 
 
 # ----- Translate connection status of the MQTT Client -----
@@ -63,10 +63,10 @@ def on_log(client, obj, level, string):
     print("MQTT Client on_log - " + string)
 
 
-mqttc.on_connect = on_connect
-mqttc.on_publish = on_publish
-mqttc.on_log = on_log
-mqttc.on_disconnect = on_disconnect
+mqtt_client.on_connect = on_connect
+mqtt_client.on_publish = on_publish
+mqtt_client.on_log = on_log
+mqtt_client.on_disconnect = on_disconnect
 
 
 # ----- Functions to connect and disconnect -----
@@ -78,19 +78,19 @@ def connect_mqtt():
         # this makes the MQTT Client behave like a web browser regarding TLS
         # see paho API documentation for details
         # https://www.eclipse.org/paho/index.php?page=clients/python/docs/index.php
-        mqttc.tls_set(None, None, None, mqtt.ssl.CERT_REQUIRED, mqtt.ssl.PROTOCOL_TLSv1_2, None)
-        mqttc.tls_insecure_set(False)
+        mqtt_client.tls_set(None, None, None, mqtt.ssl.CERT_REQUIRED, mqtt.ssl.PROTOCOL_TLSv1_2, None)
+        mqtt_client.tls_insecure_set(False)
 
-        mqttc.username_pw_set(mqtt_client_username, mqtt_client_password)
-        mqttc.reconnect_delay_set(1, 60)
-        mqttc.message_retry_set(10)
+        mqtt_client.username_pw_set(mqtt_client_username, mqtt_client_password)
+        mqtt_client.reconnect_delay_set(1, 60)
+        mqtt_client.message_retry_set(10)
 
         print("Connecting MQTT Client and starting its internal loop thread" +
               " that automatically handles initial connect, retries of initial connect, reconnects.")
-        mqttc.connect_async(mqtt_broker_host, mqtt_broker_port, 30)
+        mqtt_client.connect_async(mqtt_broker_host, mqtt_broker_port, 30)
         # If you run a network loop using loop_start() or loop_forever()
         # then re-connections are automatically handled for you.
-        mqttc.loop_start()
+        mqtt_client.loop_start()
         # give the MQTT Client some time to initially connect
         time.sleep(10)
     except:
@@ -100,9 +100,9 @@ def connect_mqtt():
 
 def disconnect_mqtt():
     print("If not yet done stopping MQTT Client gracefully.")
-    mqttc.loop_stop()
+    mqtt_client.loop_stop()
     # give the network traffic some time to cease and thus the internal loop-thread of the MQTT Client to stop
     time.sleep(10)
-    mqttc.disconnect()
+    mqtt_client.disconnect()
     # give the MQTT Client some time to connect
     time.sleep(10)

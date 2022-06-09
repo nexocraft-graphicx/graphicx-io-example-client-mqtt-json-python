@@ -19,13 +19,12 @@ def enter_credential(key, current):
 
 
 def enter_credentials(config):
-    config["mqtt_topic_prefix"] = enter_credential("mqtt_topic_prefix", config["mqtt_topic_prefix"])
-    config["device_identifier"] = enter_credential("device_identifier", config["device_identifier"])
     config["mqtt_broker_host"] = enter_credential("mqtt_broker_host", config["mqtt_broker_host"])
     config["mqtt_broker_port"] = enter_credential("mqtt_broker_port", config["mqtt_broker_port"])
     config["mqtt_client_username"] = enter_credential("mqtt_client_username", config["mqtt_client_username"])
     config["mqtt_client_password"] = enter_credential("mqtt_client_password", config["mqtt_client_password"])
     config["mqtt_client_id"] = enter_credential("mqtt_client_id", config["mqtt_client_id"])
+    config["mqtt_topic"] = enter_credential("mqtt_topic", config["mqtt_topic"])
     return config
 
 
@@ -37,41 +36,34 @@ def read_config():
         config_file_path = "config.json"
     with open(config_file_path) as config_file:
         config_data = json.load(config_file)
-        config["mqtt_topic_prefix"] = config_data["mqtt_topic_prefix"]
-        config["device_identifier"] = config_data["device_identifier"]
-        config["format_id"] = config_data["format_id"]
-        config["compression_id"] = config_data["compression_id"]
         config["mqtt_broker_host"] = config_data["mqtt_broker_host"]
         config["mqtt_broker_port"] = config_data["mqtt_broker_port"]
         config["mqtt_client_username"] = config_data["mqtt_client_username"]
         config["mqtt_client_password"] = config_data["mqtt_client_password"]
         config["mqtt_client_id"] = config_data["mqtt_client_id"]
+        config["mqtt_topic"] = config_data["mqtt_topic"]
     return config
 
 
 def write_config(config):
     data = {}
-    data['mqtt_topic_prefix'] = config["mqtt_topic_prefix"]
-    data['device_identifier'] = config["device_identifier"]
-    data['format_id'] = "17"
-    data['compression_id'] = "02"
     data['mqtt_broker_host'] = config["mqtt_broker_host"]
     data['mqtt_broker_port'] = config["mqtt_broker_port"]
     data['mqtt_client_username'] = config["mqtt_client_username"]
     data['mqtt_client_password'] = config["mqtt_client_password"]
     data['mqtt_client_id'] = config["mqtt_client_id"]
+    data['mqtt_topic'] = config["mqtt_topic"]
     with open("config_local.json", "w") as write_file:
         json.dump(data, write_file)
 
 
 def show_config(config):
     print(
-        "mqtt_topic_prefix = " + config["mqtt_topic_prefix"] + "\n" +
-        "device_identifier = " + config["device_identifier"] + "\n" +
         "mqtt_broker_host = " + config["mqtt_broker_host"] + "\n" +
         "mqtt_broker_port = " + config["mqtt_broker_port"] + "\n" +
         "mqtt_client_username = " + config["mqtt_client_username"] + "\n" +
-        "mqtt_client_id = " + config["mqtt_client_id"] + "\n"
+        "mqtt_client_id = " + config["mqtt_client_id"] + "\n" +
+        "mqtt_topic = " + config["mqtt_topic"] + "\n"
     )
 
 
